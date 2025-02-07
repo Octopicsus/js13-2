@@ -4,7 +4,7 @@ body {
 }
 
 .bgimage {
-    background-image: url('/img/menu/bigmac.webp');
+    background-image: url('/js13-2/img/menu/bigmac.webp');
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -59,7 +59,7 @@ h2 {
     position: absolute;
     left: 0;
     top: 0;
-    background-image: url('/img/icons/McDonald\'s_Golden_Arches.svg');
+    background-image: url('/js13-2/img/icons/McDonald\'s_Golden_Arches.svg');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
