@@ -307,6 +307,15 @@ function showNotification() {
 }
 
 //
+// ---- REGULAR EXPRESSIONS ----
+
+const regexPatterns = {
+  email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  phone: /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+  name: /^[A-ZА-Я][a-zа-я]*$/
+};
+
+//
 // ---- INPUT VALIDATOR ----
 
 function inputValidator(inputItem) {
@@ -316,60 +325,58 @@ function inputValidator(inputItem) {
 
   input.addEventListener("change", () => {
     const data = input.value.trim();
+    const isValid = validateInput(input.type, data);
 
-    // -- REGULAR EXPRESSIONS
-
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex =
-      /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-    const nameRegex = /^[A-ZА-Я][a-zа-я]*$/;
-
-    // -- CHECK INPUT TYPE
-
-    let isValid = false;
-
-    if (input.type === "email") {
-      isValid = emailRegex.test(data);
-    } else if (input.type === "number") {
-      isValid = phoneRegex.test(data);
-    } else if (input.type === "text") {
-      isValid = nameRegex.test(data) && data.length >= 1;
-    }
-
-    // -- INCORRECT
     if (!isValid) {
-      stateMessage.textContent = "Incorrect";
-      stateMessage.style.color = "red";
-      stateMessage.style.opacity = "1";
-      input.classList.add("invalid");
-      input.classList.remove("valid");
-      stateMessage.classList.remove("scale");
-
-      setTimeout(() => {
-        input.classList.remove("invalid");
-        stateMessage.style.color = "black";
-        stateMessage.style.opacity = "0";
-        stateMessage.textContent = "";
-        input.value = "";
-      }, 1200);
-
-      // -- CORRECT
+      showInvalidInput(input, stateMessage);
     } else {
-      stateMessage.textContent = "Done";
-      stateMessage.style.color = "white";
-      stateMessage.style.opacity = "1";
-      stateMessage.classList.add("scale");
-      input.classList.remove("invalid");
-      input.classList.add("valid");
-
-      setTimeout(() => {
-        input.classList.remove("valid");
-        stateMessage.style.color = "black";
-        stateMessage.style.opacity = "0";
-        stateMessage.textContent = "";
-      }, 1800);
+      showValidInput(input, stateMessage);
     }
   });
+}
+
+function validateInput(type, data) {
+  if (type === "email") {
+    return regexPatterns.email.test(data);
+  } else if (type === "number") {
+    return regexPatterns.phone.test(data);
+  } else if (type === "text") {
+    return regexPatterns.name.test(data) && data.length >= 1;
+  }
+  return false;
+}
+
+function showInvalidInput(input, stateMessage) {
+  stateMessage.textContent = "Incorrect";
+  stateMessage.style.color = "red";
+  stateMessage.style.opacity = "1";
+  input.classList.add("invalid");
+  input.classList.remove("valid");
+  stateMessage.classList.remove("scale");
+
+  setTimeout(() => {
+    input.classList.remove("invalid");
+    stateMessage.style.color = "black";
+    stateMessage.style.opacity = "0";
+    stateMessage.textContent = "";
+    input.value = "";
+  }, 1200);
+}
+
+function showValidInput(input, stateMessage) {
+  stateMessage.textContent = "Done";
+  stateMessage.style.color = "white";
+  stateMessage.style.opacity = "1";
+  stateMessage.classList.add("scale");
+  input.classList.remove("invalid");
+  input.classList.add("valid");
+
+  setTimeout(() => {
+    input.classList.remove("valid");
+    stateMessage.style.color = "black";
+    stateMessage.style.opacity = "0";
+    stateMessage.textContent = "";
+  }, 1800);
 }
 
 //
@@ -388,11 +395,10 @@ function checkFormValidity() {
   const emailInput = document.querySelector('input[name="email"]');
   const phoneInput = document.querySelector('input[name="phone"]');
   const orderBtn = document.getElementById("order");
-  const nameRegex = /^[A-ZА-Я][a-zа-я]*$/;
 
-  const isNameFilled = nameInput.value.trim() !== "" && nameInput.value.length > 1 && nameRegex.test(nameInput.value);
-  const isEmailFilled = emailInput.value.trim() !== "";
-  const isPhoneFilled = phoneInput.value.trim() !== "";
+  const isNameFilled = validateInput("text", nameInput.value.trim());
+  const isEmailFilled = validateInput("email", emailInput.value.trim());
+  const isPhoneFilled = validateInput("number", phoneInput.value.trim());
 
   const isFormValid = isNameFilled && isEmailFilled && isPhoneFilled;
 
