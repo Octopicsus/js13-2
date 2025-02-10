@@ -214,7 +214,7 @@ form h4 {
     margin-bottom: 4px;
 }
 
-.orderBtn{
+.orderBtn {
     margin-top: 30px;
     padding: 10px 70px;
     border: none;
@@ -225,10 +225,12 @@ form h4 {
     letter-spacing: 2px;
     transition: .3s ease-in-out;
     opacity: 0;
+    cursor: none;
 }
 
 .showBTN {
     opacity: 1;
+    cursor: pointer;
 }
 
 input {
@@ -357,7 +359,7 @@ h5 {
     border: rgba(255, 0, 0, 0.3) 2px solid;
 }
 
-.m-invalid{
+.m-invalid {
     color: red;
     opacity: 1;
 }
@@ -368,7 +370,7 @@ h5 {
     border: rgba(75, 207, 75, 0.185) 2px solid;
 }
 
-.m-valid{
+.m-valid {
     color: white;
     opacity: 1;
 }

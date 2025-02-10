@@ -260,7 +260,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //
 
-document.querySelector("#order").addEventListener("click", () => {
+document.querySelector("#order").addEventListener("click", (event) => {
+  const orderBtn = event.target;
+  if (!orderBtn.classList.contains("showBTN")) {
+    return;
+  }
+
   let amount = document.forms.order.orderamount.value;
   let price = selectedMeal.price * currencyRates[selectedCurrency];
 
@@ -382,7 +387,7 @@ function showValidInput(input, stateMessage) {
   setTimeout(() => {
     input.classList.remove("valid");
     stateMessage.classList.remove("m-valid");
- /*    stateMessage.style.color = "black";
+    /*    stateMessage.style.color = "black";
     stateMessage.style.opacity = "0"; */
     stateMessage.textContent = "";
   }, 1800);
