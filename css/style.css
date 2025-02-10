@@ -225,7 +225,7 @@ form h4 {
     letter-spacing: 2px;
     transition: .3s ease-in-out;
     opacity: 0;
-    cursor: none;
+    cursor: default;
 }
 
 .showBTN {
