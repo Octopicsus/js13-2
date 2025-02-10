@@ -357,10 +357,20 @@ h5 {
     border: rgba(255, 0, 0, 0.3) 2px solid;
 }
 
+.m-invalid{
+    color: red;
+    opacity: 1;
+}
+
 .valid {
     color: green;
     background-color: rgb(228, 255, 228);
     border: rgba(75, 207, 75, 0.185) 2px solid;
+}
+
+.m-valid{
+    color: white;
+    opacity: 1;
 }
 
 .scale {

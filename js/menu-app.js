@@ -311,8 +311,9 @@ function showNotification() {
 
 const regexPatterns = {
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  phone: /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
-  name: /^[A-ZА-Я][a-zа-я]*$/
+  phone:
+    /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+  name: /^[A-ZА-Я][a-zа-я]*$/,
 };
 
 //
@@ -348,16 +349,22 @@ function validateInput(type, data) {
 
 function showInvalidInput(input, stateMessage) {
   stateMessage.textContent = "Incorrect";
-  stateMessage.style.color = "red";
-  stateMessage.style.opacity = "1";
+  /*  stateMessage.style.color = "red";
+  stateMessage.style.opacity = "1"; */
+  stateMessage.classList.remove("m-valid");
+  stateMessage.classList.add("m-invalid");
+
   input.classList.add("invalid");
   input.classList.remove("valid");
   stateMessage.classList.remove("scale");
 
   setTimeout(() => {
     input.classList.remove("invalid");
-    stateMessage.style.color = "black";
-    stateMessage.style.opacity = "0";
+    /*   stateMessage.style.color = "black";
+    stateMessage.style.opacity = "0"; */
+    stateMessage.classList.remove("m-invalid");
+    stateMessage.classList.add("m-valid");
+    input.classList.remove("valid");
     stateMessage.textContent = "";
     input.value = "";
   }, 1200);
@@ -365,16 +372,18 @@ function showInvalidInput(input, stateMessage) {
 
 function showValidInput(input, stateMessage) {
   stateMessage.textContent = "Done";
-  stateMessage.style.color = "white";
-  stateMessage.style.opacity = "1";
+  stateMessage.classList.add("m-valid");
+  // stateMessage.style.color = "white";
+  // stateMessage.style.opacity = "1";
   stateMessage.classList.add("scale");
   input.classList.remove("invalid");
   input.classList.add("valid");
 
   setTimeout(() => {
     input.classList.remove("valid");
-    stateMessage.style.color = "black";
-    stateMessage.style.opacity = "0";
+    stateMessage.classList.remove("m-valid");
+ /*    stateMessage.style.color = "black";
+    stateMessage.style.opacity = "0"; */
     stateMessage.textContent = "";
   }, 1800);
 }
