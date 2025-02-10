@@ -277,7 +277,7 @@ option {
     font-weight: bolder;
     text-transform: uppercase;
     transition: .3s ease-in-out;
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 .bg {
